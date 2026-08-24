@@ -5,7 +5,7 @@ const {
     createLand,
     getAllLand,
     getLand,
-    updateLand,
+    updateLand,updateLandStatus,
     deleteLand
 } = require("../controllers/land.js");
 
@@ -16,6 +16,7 @@ router.get("/", getAllLand);
 
 router.get("/:id", getLand);
 router.put("/:id", updateLand);
+router.patch("/:id/status", updateLandStatus);
 
 
 router.delete("/:id", deleteLand);

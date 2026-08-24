@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const landParcelSchema = new mongoose.Schema(
+const landSchema = new mongoose.Schema(
     {
         project: {
             type: mongoose.Schema.Types.ObjectId,
@@ -14,7 +14,8 @@ const landParcelSchema = new mongoose.Schema(
         },
 
         ownerName: {
-            type: String,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "LandOwner",
             required: true
         },
 
@@ -70,6 +71,6 @@ const landParcelSchema = new mongoose.Schema(
     }
 );
 
-const LandParcel = mongoose.model("LandParcel", landParcelSchema);
+const Land = mongoose.model("Land", landSchema);
 
-module.exports = LandParcel;
+module.exports = Land;
