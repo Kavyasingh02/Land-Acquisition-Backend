@@ -21,11 +21,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         enum: [
-            "SUPER_ADMIN",
-            "CENTRAL_MINISTRY",
-            "STATE_AUTHORITY",
-            "DISTRICT_AUTHORITY",
-            "PROJECT_AGENCY",
+            "ADMIN",
+            "FINANCE_OFFICER",
             "FIELD_OFFICER"
         ]
     },
