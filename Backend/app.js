@@ -3,6 +3,8 @@ const app = express();
 
 require("dotenv").config();
 
+const cors = require("cors");
+
 const port = 8080;
 const mongoose = require('mongoose');
 const user = require("./models/user.js");
@@ -21,7 +23,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/land-acquisition').then(() => {
         console.log("MongoDB connection error:", err);
     });
 
-
+app.use(cors());
 app.use(express.json());
 app.get("/", (req, res) => {
     res.send("hello");
