@@ -15,7 +15,8 @@ module.exports.getAllLand = async (req, res) => {
 // get one land
 module.exports.getLand = async (req, res) => {
     const { id } = req.params;
-const land = await Land.findById(id);
+const land = await Land.findById(id).populate("project").populate("owner");
+    
 
     res.json(land);
 };
@@ -41,7 +42,6 @@ module.exports.updateLandStatus = async (req, res) => {
         { status: status },
         { new: true }
     );
-
     res.json(updatedLand);
 };
 

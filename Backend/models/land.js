@@ -13,7 +13,7 @@ const landSchema = new mongoose.Schema(
             required: true
         },
 
-        ownerName: {
+        owner: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "LandOwner",
             required: true
