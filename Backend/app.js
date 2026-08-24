@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const user = require("./models/user.js");
 const userRouter = require("./routes/user.js");
 const projectRouter = require("./routes/project.js");
+const landRouter = require("./routes/land.js");
 
 mongoose.connect('mongodb://127.0.0.1:27017/land-acquisition').then(() => {
         console.log("MongoDB connected");
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 });
 app.use("/users", userRouter)
 app.use("/projects", projectRouter);
+app.use("/land", landRouter);
 
 
 app.listen(port, () => {
