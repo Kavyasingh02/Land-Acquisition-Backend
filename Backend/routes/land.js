@@ -5,20 +5,25 @@ const {
     createLand,
     getAllLand,
     getLand,
-    updateLand,updateLandStatus,
+    updateLand, updateLandStatus,
     deleteLand
 } = require("../controllers/land.js");
 
-
-router.post("/", createLand);
-
-router.get("/", getAllLand);
-
-router.get("/:id", getLand);
-router.put("/:id", updateLand);
-router.patch("/:id/status", updateLandStatus);
+const { authenticateUser } = require("../Middleware/auth.js");
+const { authorizeRoles } = require("../Middleware/authorize.js");
 
 
-router.delete("/:id", deleteLand);
+router.post("/", authenticateUser, authorizeRoles("ADMIN", "FIELD_OFFICER"), createLand);
+
+router.get("/", authenticateUser, authorizeRoles("ADMIN", "FIELD_OFFICER"), getAllLand);
+
+router.get("/:id", authenticateUser, authorizeRoles("ADMIN", "FIELD_OFFICER"), getLand);
+
+router.put("/:id", authenticateUser, authorizeRoles("ADMIN", "FIELD_OFFICER"), updateLand);
+
+router.patch("/:id/status", authenticateUser, authorizeRoles("ADMIN", "FIELD_OFFICER"), updateLandStatus);
+
+
+router.delete("/:id", authenticateUser, authorizeRoles("ADMIN"), deleteLand);
 
 module.exports = router;

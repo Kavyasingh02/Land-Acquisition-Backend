@@ -8,17 +8,20 @@ const {
     updateLandOwner,
     deleteLandOwner
 } = require("../controllers/landOwner.js");
+const { authenticateUser } = require("../Middleware/auth.js");
+const { authorizeRoles } = require("../Middleware/authorize.js");
 
 
-router.post("/", createLandOwner);
+router.post("/", authenticateUser, authorizeRoles("ADMIN", "FIELD_OFFICER"), createLandOwner);
 
-router.get("/", getAllLandOwners);
-router.get("/:id", getLandOwner);
+router.get("/", authenticateUser, authorizeRoles("ADMIN", "FIELD_OFFICER"), getAllLandOwners);
 
-
-router.put("/:id", updateLandOwner);
+router.get("/:id", authenticateUser, authorizeRoles("ADMIN", "FIELD_OFFICER"), getLandOwner);
 
 
-router.delete("/:id", deleteLandOwner);
+router.put("/:id", authenticateUser, authorizeRoles("ADMIN", "FIELD_OFFICER"), updateLandOwner);
+
+
+router.delete("/:id", authenticateUser, authorizeRoles("ADMIN"), deleteLandOwner);
 
 module.exports = router;

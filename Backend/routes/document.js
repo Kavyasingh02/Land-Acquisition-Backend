@@ -9,14 +9,18 @@ const {
     deleteDocument
 } = require("../controllers/document.js");
 
-router.post("/", createDocument);
+const { authenticateUser } = require("../Middleware/auth.js");
 
-router.get("/", getAllDocuments);
+const { authorizeRoles } = require("../Middleware/authorize.js");
 
-router.get("/:id", getDocument);
+router.post("/", authenticateUser, authorizeRoles("ADMIN", "FIELD_OFFICER"), createDocument);
 
-router.put("/:id", updateDocument);
+router.get("/", authenticateUser, authorizeRoles("ADMIN", "FIELD_OFFICER"), getAllDocuments);
 
-router.delete("/:id", deleteDocument);
+router.get("/:id", authenticateUser, authorizeRoles("ADMIN", "FIELD_OFFICER"), getDocument);
+
+router.put("/:id", authenticateUser, authorizeRoles("ADMIN", "FIELD_OFFICER"), updateDocument);
+
+router.delete("/:id", authenticateUser, authorizeRoles("ADMIN", "FIELD_OFFICER"), deleteDocument);
 
 module.exports = router;
